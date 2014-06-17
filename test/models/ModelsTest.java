@@ -18,7 +18,7 @@ public class ModelsTest extends WithApplication {
 
    @Before
    public void setup() {
-      start(fakeApplication(inMemoryDatabase()));
+      start(fakeApplication(inMemoryDatabase(), fakeGlobal()));
 
       //preparing data
       Ebean.save((List) Yaml.load("test-data.yml"));

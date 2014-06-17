@@ -15,6 +15,8 @@ import play.i18n.Lang;
 import play.libs.F;
 import play.libs.F.*;
 
+import models.*;
+
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
@@ -35,9 +37,8 @@ public class ApplicationTest {
 
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
+        Content html = views.html.index.render(new ArrayList<Project>(), new ArrayList<Task>());
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
 
 
