@@ -25,15 +25,25 @@ public class Application extends Controller {
       }
    }
 
+   @Security.Authenticated(Secured.class)
     public static Result index() {
        return ok(index.render(
-          Project.find.all(), 
-          Task.find.all()
+          //Project.find.all(), 
+          Project.findInvolving(request().username()),
+          //Task.find.all()
+          Task.findTodoInvolving(request().username()),
+          User.find.byId(request().username())
        ));
     }
 
     public static Result login() {
        return ok(login.render(Form.form(Login.class)));
+    }
+
+    public static Result logout() {
+       session().clear();
+       flash("success", "You've been logout");
+       return redirect(routes.Application.login());
     }
 
     public static Result authenticate() {
